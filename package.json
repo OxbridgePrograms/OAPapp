@@ -1,6 +1,6 @@
 {
   "name": "empty-project-template",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "src/index.js",
   "private": true,
   "scripts": {
     "start": "expo start",
@@ -8,16 +8,23 @@
     "ios": "expo start --ios",
     "eject": "expo eject"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
   "dependencies": {
-    "expo": "^30.0.1",
-    "firebase": "^5.5.6",
+    "expo": "^29.0.0",
+    "expo-cli": "^2.2.1",
+    "firebase": "^5.4.2",
     "lodash": "^4.17.11",
-    "react": "16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react": "^16.3.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
+    "react-native-image-view": "^2.0.12",
     "react-native-modalbox": "^1.6.0",
-    "react-native-router-flux": "^4.0.5",
-    "react-redux": "^5.1.0",
-    "redux": "^4.0.1"
+    "react-native-router-flux": "^4.0.1",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0"
   }
 }
