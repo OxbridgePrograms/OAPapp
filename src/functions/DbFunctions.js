@@ -106,6 +106,9 @@ var unsubscribe = null;
   // Remove listeners to the database and remove URLs from Redux
   export const detachAllFirebaseListeners = () => {
 
+    if (store.getState().dbListener == undefined ||
+      store.getState().dbListener == [])
+      return;
     // turn off all active DB listeners
     for (let url of store.getState().dbListener) {
       firebase.database().ref(url).off();
