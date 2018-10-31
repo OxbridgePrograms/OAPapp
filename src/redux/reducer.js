@@ -25,6 +25,7 @@ const reducer = (state = {}, action) => {
 			if (!data.includes(dBURLUser))
 				data.push( action.dbURL );
 			console.log(action.dbURL + ' listener is on');
+			console.log('All Listeners' + data)
 			return Object.assign({}, state, {dbListener: data});
 		}
 		case ActionList.REMOVE_ALL_DB_LISTENER: {
