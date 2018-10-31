@@ -24,7 +24,7 @@ class DrawerContent extends React.Component {
         else if (page == 'Profile')
           Actions.Settings();
         else if (page == 'Announcements')
-          Actions.AnnouncementDisplay();
+          Actions.Announcements();
         // else if (page == 'Map')
         //   Actions.Map();
     }
