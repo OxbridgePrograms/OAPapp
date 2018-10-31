@@ -41,31 +41,26 @@ class HomePage extends Component {
 
   componentDidMount() {
     // Check if the user is logged in, if not go to loginpage
-    let localNotif = {
-      title: 'Hello World',
-      android: {
-        vibrate: true,
-        sound: true,
-        color: '#111111',
-        priority: 'high'
-      },
-      body: 'This is a local notification',
-      ios: {
-        sound: true
-      }
-    };
-    console.log(localNotif);
+    // let localNotif = {
+    //   title: 'Hello World',
+    //   android: {
+    //     vibrate: true,
+    //     sound: true,
+    //     color: '#111111',
+    //     priority: 'high'
+    //   },
+    //   body: 'This is a local notification',
+    //   ios: {
+    //     sound: true
+    //   }
+    // };
+    // console.log(localNotif);
 
-    let schedOption = {
-      time: (new Date()).getTime() + 5000
-    };
+    // let schedOption = {
+    //   time: (new Date()).getTime() + 5000
+    // };
 
-    Expo.Notifications.scheduleLocalNotificationAsync( localNotif, schedOption );
-    var user = firebase.auth().currentUser;
-    if (user) {
-    } else {
-      userLogout();
-    }
+    // Expo.Notifications.scheduleLocalNotificationAsync( localNotif, schedOption );
   }
 
   render() {

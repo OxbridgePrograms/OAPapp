@@ -73,15 +73,6 @@ class DisplayEvents extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    // Check if the user is logged in, if not go to loginpage
-    var user = firebase.auth().currentUser;
-    if (user) {
-    } else {
-      Actions.Authentication();
-    }
-  }
-
   EventBubble = (props) => {
   const event_info = this.props.program.events[props.event.uid];
   let dateStr = date2String(event_info.startTime);

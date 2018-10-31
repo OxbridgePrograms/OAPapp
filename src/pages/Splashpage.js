@@ -21,9 +21,10 @@ import {sortByTime} from './../components/DisplayEvents';
 import {userLogout,
   getUserProfile,
   getUserMasterList,
-  getProgramData} from './../functions/DbFunctions';
+  getProgramData,
+  detachAllFirebaseListeners} from './../functions/DbFunctions';
 
-import {registerForPushNotificationsAsync} from './../functions/TokenFunctions';
+// import {registerForPushNotificationsAsync} from './../functions/TokenFunctions';
 
 //Keep track of redux storage 
 const mapStateToProps = (state) => {
@@ -42,7 +43,7 @@ class Splashpage extends Component {
   componentDidMount () {
     let user = firebase.auth().currentUser;
     getUserProfile(user.uid);
-    registerForPushNotificationsAsync(user.uid);
+    // registerForPushNotificationsAsync(user.uid);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -51,6 +52,7 @@ class Splashpage extends Component {
       if (this.props.userData != undefined &&
         this.props.userList === undefined &&
         this.props.program === undefined) {
+        detachAllFirebaseListeners();
         getUserMasterList();
         getProgramData();
       } else if (this.props.userData != undefined &&
@@ -60,6 +62,7 @@ class Splashpage extends Component {
         // Update info if there is a mismatch:
         if (this.props.program.metaData.id != this.props.userData.programId ||
           this.props.program.metaData.year != this.props.userData.programYear) {
+          detachAllFirebaseListeners();
           getUserMasterList();
           getProgramData();
         } else

@@ -32,7 +32,7 @@ class Authentication extends Component {
     }
   }
 
-  userLogin() {
+  _userLogin() {
     if (this.state.username != undefined && this.state.password != undefined) {
       userLogin(this.state.username, this.state.password);
     } else {
@@ -78,7 +78,7 @@ class Authentication extends Component {
                 selectionColor='white'
               />
 
-              <TouchableOpacity style={styles.buttonWrapper} onPress={this.userLogin.bind(this)}>
+              <TouchableOpacity style={styles.buttonWrapper} onPress={this._userLogin.bind(this)}>
                 <Text style={styles.buttonText}> Log In </Text>
               </TouchableOpacity>
             </View>
