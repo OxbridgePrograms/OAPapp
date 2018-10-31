@@ -26,9 +26,7 @@ var unsubscribe = null;
       store.dispatch({type: ActionList.ADD_USER_DATA, userData: snapshot.val()});
 
       // store the listener address if it is not in the list already
-      if ( store.getState().dbListener == undefined || 
-        !store.getState().dbListener.includes(dBURLUser))
-        store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLUser});
+      store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLUser});
 
       console.log('User Firebase redux updated');
 
@@ -94,9 +92,7 @@ var unsubscribe = null;
       store.dispatch({type: ActionList.ADD_PROGRAM_DATA, program: snapshot.val()});
 
       // Store the listener if it doesn't exist
-      if ( store.getState().dbListener == undefined || 
-        !store.getState().dbListener.includes(dBURLProgram))
-          store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLProgram});
+      store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLProgram});
 
       console.log('Programs Firebase redux updated');
 

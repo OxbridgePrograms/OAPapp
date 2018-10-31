@@ -22,7 +22,8 @@ const reducer = (state = {}, action) => {
 			let data = [];
 			if (state.dbListener !== undefined)
 				data = state.dbListener.slice(0);
-			data.push( action.dbURL );
+			if (!data.includes(dBURLUser))
+				data.push( action.dbURL );
 			console.log(action.dbURL + ' listener is on');
 			return Object.assign({}, state, {dbListener: data});
 		}
