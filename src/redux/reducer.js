@@ -18,6 +18,8 @@ const reducer = (state = {}, action) => {
 			const data = Object({}, state.userData, {events: action.events});
 			return Object.assign({}, state, {userData: data});
 		}
+
+		// Handle the DB Listeners
 		case ActionList.ADD_DB_LISTENER: {
 			let data = [];
 			if (state.dbListener !== undefined)
@@ -31,11 +33,30 @@ const reducer = (state = {}, action) => {
 		case ActionList.REMOVE_ALL_DB_LISTENER: {
 			return Object.assign({}, state, {dbListener: []});
 		}
+
+		// Handle message storage
+		case ActionList.ADD_MESSAGE_DATA: {
+			let data = action.channelData;
+
+			// Convert the messages to an array
+			data.messages = data.messages.values();
+
+			// Append channel data to existing array
+			if (state.channelArr !== undefined)
+				data = state.channelArr.slice(0).push( data );
+
+			// Return new channel array
+			return Object.assign({}, state, {channelArr: data});
+		}
+
+		// Remove the a redux object specified by key
 		case ActionList.REMOVE_BY_KEY: {
 			let data = Object.assign({}, state);
 			delete data[action.key]
 			return data;
 		}
+
+		// Remove all redux objects (clear data)
 		case ActionList.REMOVE_ALL: {
 			return {};
 		}

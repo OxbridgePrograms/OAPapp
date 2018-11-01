@@ -102,6 +102,38 @@ var unsubscribe = null;
     });
   }
 
+  // Get the messages made by the user
+  export const getMessageData = () => {
+
+    // Return if no channels exist:
+    if (store.getState().userData.channels == undefined)
+      return;
+
+    let channelIdArr = store.getState().userData.channels.values();
+    const db = firebase.database();
+
+    // Get the relevant message information from the database
+    for (let channel of channelIdArr) {
+      let dBURLChannel = 'channels/' + channel.uid;
+
+      // Create a listener for each message channel
+      db.ref(dBURLChannel).on('value', (snapshot) => {
+        // Store the listener on redux
+        store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLChannel});
+
+        // Store the program on redux
+        store.dispatch({type: ActionList.ADD_MESSAGE_DATA, channelData: snapshot});
+
+        console.log(channel.uid + ' Message Channel redux updated');
+      }, (error) => {
+        Alert.alert('Connection Error', 'Problem downloading message information. Please check your internet connection: ' + error.code);
+        Actions.popTo('Authentication');
+      });
+      
+    }
+
+  }
+
 
   // Remove listeners to the database and remove URLs from Redux
   export const detachAllFirebaseListeners = () => {
