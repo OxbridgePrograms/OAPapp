@@ -127,7 +127,7 @@ var unsubscribe = null;
         store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLChannel});
 
         // Store the program on redux
-        store.dispatch({type: ActionList.ADD_MESSAGE_DATA, channelData: snapshot});
+        store.dispatch({type: ActionList.ADD_MESSAGE_DATA, channelData: snapshot.val()});
 
         console.log(channel.uid + ' Message Channel redux updated');
       }, (error) => {

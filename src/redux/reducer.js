@@ -38,9 +38,6 @@ const reducer = (state = {}, action) => {
 		case ActionList.ADD_MESSAGE_DATA: {
 			let data = Object.assign({}, action.channelData);
 
-			console.log( data );
-			console.log( Object.keys(data) );
-
 			// Convert the messages to an array
 			if (data.messages !== undefined)
 				data.messages = Object.values( data.messages );
