@@ -38,7 +38,7 @@ const reducer = (state = {}, action) => {
 		case ActionList.ADD_MESSAGE_DATA: {
 			let data = action.channelData;
 
-			console.log( data.messages );
+			console.log( data.users );
 
 			// Convert the messages to an array
 			if (data.messages !== undefined)
