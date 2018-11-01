@@ -28,6 +28,9 @@ var unsubscribe = null;
       // store the listener address if it is not in the list already
       store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLUser});
 
+      // Update the message information (message information may have changed)
+      getMessageData();
+
       console.log('User Firebase redux updated');
 
       }, (error) =>{
@@ -106,8 +109,10 @@ var unsubscribe = null;
   export const getMessageData = () => {
 
     // Return if no channels exist:
-    if (store.getState().userData.channels == undefined)
+    if (store.getState().userData.channels == undefined) {
+      console.log('No message found');
       return;
+    }
 
     let channelIdArr = store.getState().userData.channels.values();
     const db = firebase.database();

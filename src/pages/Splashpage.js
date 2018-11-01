@@ -55,7 +55,6 @@ class Splashpage extends Component {
         detachAllFirebaseListeners();
         getUserMasterList();
         getProgramData();
-        getMessageData();
       } else if (this.props.userData != undefined &&
         this.props.userList != undefined &&
         this.props.program != undefined) {
@@ -66,7 +65,6 @@ class Splashpage extends Component {
           detachAllFirebaseListeners();
           getUserMasterList();
           getProgramData();
-          getMessageData();
         } else
           this._gotoHomepage();
       }
