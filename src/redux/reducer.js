@@ -39,7 +39,7 @@ const reducer = (state = {}, action) => {
 			let data = action.channelData;
 
 			// Convert the messages to an array
-			data.messages = data.messages.values();
+			data.messages = Object.values( data.messages );
 
 			// Append channel data to existing array
 			if (state.channelArr !== undefined)

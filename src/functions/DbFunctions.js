@@ -116,7 +116,7 @@ var unsubscribe = null;
 
     console.log(store.getState().userData.channels);
 
-    let channelIdArr = store.getState().userData.channels.values();
+    let channelIdArr = Object.values( store.getState().userData.channels );
     const db = firebase.database();
 
     // Get the relevant message information from the database
