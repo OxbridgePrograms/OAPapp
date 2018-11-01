@@ -114,8 +114,6 @@ var unsubscribe = null;
       return;
     }
 
-    console.log(store.getState().userData.channels);
-
     let channelIdArr = Object.values( store.getState().userData.channels );
     const db = firebase.database();
 
