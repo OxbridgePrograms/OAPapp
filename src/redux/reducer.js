@@ -36,9 +36,9 @@ const reducer = (state = {}, action) => {
 
 		// Handle message storage
 		case ActionList.ADD_MESSAGE_DATA: {
-			let data = action.channelData;
+			let data = Object.assign({}, action.channelData);
 
-			console.log( data.users );
+			console.log( Object.keys(data) );
 
 			// Convert the messages to an array
 			if (data.messages !== undefined)
