@@ -110,9 +110,11 @@ var unsubscribe = null;
 
     // Return if no channels exist:
     if (store.getState().userData.channels == undefined) {
-      console.log('No message found');
+      console.log('No messages found');
       return;
     }
+
+    console.log(store.getState().userData.channels);
 
     let channelIdArr = store.getState().userData.channels.values();
     const db = firebase.database();
