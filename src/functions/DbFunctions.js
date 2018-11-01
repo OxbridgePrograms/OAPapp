@@ -300,3 +300,26 @@ export const addOrDeleteHandleDatabase = (url, state, id, error) => {
     }
 
   }
+
+/************************************************************************************************
+*
+* Add/Delete functions for Chat Component
+*
+*************************************************************************************************/
+
+export const submitMessage = (uid, data) => {
+  let dbURL = 'channels/' + uid + '/messages';
+
+  // We push the key along with the data object
+  updateArr = {}
+  const key = firebase.database().ref( dbURL ).push().key;
+  updateArr[dbURL + '/' + key] = Object.assign({}, data, {uid: key});
+
+  // Push the updates to the databse
+  firebase.database().ref().update(updateArr, (error) => {
+    if (error) {
+      Alert.alert(error.code);
+      console.log(error);
+    }
+  });
+}

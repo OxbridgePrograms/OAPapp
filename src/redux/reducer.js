@@ -42,8 +42,6 @@ const reducer = (state = {}, action) => {
 			if (data.messages !== undefined)
 				data.messages = Object.values( data.messages );
 
-			console.log( data );
-
 			// Append channel data to existing array
 			if (state.channelArr !== undefined)
 				data = state.channelArr.slice(0).push( data );

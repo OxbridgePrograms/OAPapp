@@ -605,5 +605,25 @@ export default styles = StyleSheet.create({
     color: c5,
     fontSize: h3,
     fontFamily: subTitleFontLight,
+  },
+
+  // For Messenger
+  messengerInboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    height: 200
+  },
+  messengerAvatarContainer: {
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  messengerPreviewContainer: {
+    flex: 4,
+    alignSelf: 'stretch'
+    alignItems: 'center',
+    flexDirection: 'column'
   }
 });
