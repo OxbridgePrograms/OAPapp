@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {Alert, 
   Image, 
-  Text, 
+  KeyboardAvoidingView, 
   TouchableOpacity, 
   ScrollView,
   View} from 'react-native';
@@ -11,8 +11,10 @@ import {Actions} from 'react-native-router-flux';
 import * as firebase from 'firebase';
 
 import { connect } from 'react-redux';
+import { sendMessage } from './../functions/ChatFunctions';
 
 import Expo from 'expo';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 // Custom components
 import styles from '../style/styles';
@@ -24,32 +26,30 @@ const mapStateToProps = (state) => {
     channelArr: state.channelArr};
 }
 
-class HomePage extends Component {
-
-  state = {};
-
+// TODO: replace the messages w/ the messages fed by the prop
+class MessengerPage extends Component {
   constructor (props) {
     super(props);
   }
 
-  componentDidMount() {
-  }
-
   render() {
-    let focusedDate = centerDate( this.props.program.programDates );
+
     return (
-      <ScrollView style={styles.scroll} bounces={false}>
-        <TopBanner programName={this.props.program.metaData.name} programYear={this.props.program.metaData.year} focusedDate={focusedDate}/>
-        <Announcements type='recent'/>
-        <DisplayEvents focusedDate={focusedDate} type={'upcoming'}/>
-        <View style={styles.container}>
-          <TouchableOpacity style={styles.buttonWrapper} onPress={() => userLogout()}>
-            <Text style={styles.buttonText} > Log out </Text>
-          </TouchableOpacity>
-        </View>
-        </ScrollView>
+      <KeyboardAvoidingView
+      keyboardVerticalOffset={80}
+      style={{flex: 1}}
+      behavior="padding"
+      >
+        <GiftedChat
+          messages={this.props.channelArr['ex1'].messages}
+          onSend={messages => sendMessage(this.props.userData, 'ex1', messages)}
+          user={{
+            _id: this.props.userData.uid,
+          }}
+        />
+      </KeyboardAvoidingView>
     );
   }
 }
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps)(MessengerPage);

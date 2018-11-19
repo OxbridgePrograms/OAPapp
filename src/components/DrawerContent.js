@@ -25,8 +25,8 @@ class DrawerContent extends React.Component {
           Actions.Settings();
         else if (page == 'Announcements')
           Actions.Announcements();
-        // else if (page == 'Map')
-        //   Actions.Map();
+        else if (page == 'Inbox')
+          Actions.Inbox();
     }
 
   createMenuItem = (props) => {
@@ -52,7 +52,7 @@ class DrawerContent extends React.Component {
           <this.createMenuItem title="Home" page="Home" icon="md-home" />
           <this.createMenuItem title="Announcements" page="Announcements" icon="md-megaphone" />
           <this.createMenuItem title="Program Schedule" page="Schedule" icon="md-calendar" />
-          <this.createMenuItem title="Campus Map" page="Map" icon="md-map" />
+          <this.createMenuItem title="Inbox" page="Inbox" icon="ios-chatboxes" />
           <this.createMenuItem title="Profile" page="Profile" icon="md-person" />
         </View>
 

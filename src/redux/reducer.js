@@ -1,6 +1,7 @@
 import ActionList from './actions/ActionList';
 import {sortByTime} from './../functions/DateFunctions';
 import {detachFirebaseListener} from './../functions/DbFunctions';
+import {compareMessages} from './../functions/ChatFunctions';
 
 const reducer = (state = {}, action) => {
 	switch (action.type) {
@@ -36,16 +37,21 @@ const reducer = (state = {}, action) => {
 
 		// Handle message storage
 		case ActionList.ADD_MESSAGE_DATA: {
-			let data = Object.assign({}, action.channelData);
+			let data = Object.assign({}, action.channelData.data);
 
 			// Convert the messages to an array
-			if (data.messages !== undefined)
+			if (data.messages !== undefined) {
 				data.messages = Object.values( data.messages );
+				data.messages.sort( compareMessages );
+			}
 
 			// Append channel data to existing array
 			if (state.channelArr !== undefined)
-				data = state.channelArr.slice(0).push( data );
+				data = Object.assign({}, state.channelArr, {[action.channelData.uid]: data} );
+			else
+				data = {[action.channelData.uid]: data};
 
+			console.log( data );
 			// Return new channel array
 			return Object.assign({}, state, {channelArr: data});
 		}

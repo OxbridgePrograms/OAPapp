@@ -622,8 +622,8 @@ export default styles = StyleSheet.create({
   },
   messengerPreviewContainer: {
     flex: 4,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
     alignItems: 'center',
     flexDirection: 'column'
-  }
+  },
 });

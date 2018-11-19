@@ -123,11 +123,11 @@ var unsubscribe = null;
 
       // Create a listener for each message channel
       db.ref(dBURLChannel).on('value', (snapshot) => {
+        // Store the program on redux
+        store.dispatch({type: ActionList.ADD_MESSAGE_DATA, channelData: {data: snapshot.val(), uid: channel.uid} });
+
         // Store the listener on redux
         store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLChannel});
-
-        // Store the program on redux
-        store.dispatch({type: ActionList.ADD_MESSAGE_DATA, channelData: snapshot.val()});
 
         console.log(channel.uid + ' Message Channel redux updated');
       }, (error) => {
@@ -313,7 +313,7 @@ export const submitMessage = (uid, data) => {
   // We push the key along with the data object
   updateArr = {}
   const key = firebase.database().ref( dbURL ).push().key;
-  updateArr[dbURL + '/' + key] = Object.assign({}, data, {uid: key});
+  updateArr[dbURL + '/' + key] = Object.assign({}, data, {_id: key});
 
   // Push the updates to the databse
   firebase.database().ref().update(updateArr, (error) => {

@@ -25,6 +25,7 @@ import Settings from './pages/Settings';
 import Splashpage from './pages/Splashpage';
 import EventPage from './pages/EventPage';
 import AnnouncementPage from './pages/AnnouncementPage';
+import MessengerPage from './pages/MessengerPage';
 import AnnouncementDisplay from './pages/AnnouncementDisplay';
 
 import styles from './style/styles';
@@ -84,6 +85,14 @@ class App extends Component {
                     titleStyle={styles.navBarTitle}
                     title='Announcements'
                     key='Announcements'
+                  />
+                  <Scene
+                    component={MessengerPage}
+                    title='Default_Messenger_Header'
+                    navigationBarStyle={styles.navBar}
+                    titleStyle={styles.navBarTitle}
+                    navBarButtonColor='white'
+                    key='Inbox'
                   />
                   <Scene
                     component={CalendarPage}
