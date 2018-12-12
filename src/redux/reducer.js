@@ -28,7 +28,6 @@ const reducer = (state = {}, action) => {
 			if (!data.includes( action.dbURL ))
 				data.push( action.dbURL );
 			console.log(action.dbURL + ' listener is on');
-			console.log('All Listeners' + data)
 			return Object.assign({}, state, {dbListener: data});
 		}
 		case ActionList.REMOVE_ALL_DB_LISTENER: {
@@ -51,7 +50,6 @@ const reducer = (state = {}, action) => {
 			else
 				data = {[action.channelData.uid]: data};
 
-			console.log( data );
 			// Return new channel array
 			return Object.assign({}, state, {channelArr: data});
 		}

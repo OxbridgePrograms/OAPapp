@@ -11,18 +11,18 @@ import {Actions} from 'react-native-router-flux';
 import * as firebase from 'firebase';
 
 import { connect } from 'react-redux';
-import { sendMessage } from './../functions/ChatFunctions';
 
 import Expo from 'expo';
 import { GiftedChat } from 'react-native-gifted-chat';
 
 // Custom components
 import styles from '../style/styles';
+import { sendMessage,
+markAsRead } from './../functions/ChatFunctions';
 
-//Function to feed HomePage with data as props
+// Messenger only needs channel and user data
 const mapStateToProps = (state) => {
-  return {program: state.program,
-    userData: state.userData,
+  return {userData: state.userData,
     channelArr: state.channelArr};
 }
 
@@ -30,19 +30,30 @@ const mapStateToProps = (state) => {
 class MessengerPage extends Component {
   constructor (props) {
     super(props);
+    this._markChannelAsRead()
+  }
+
+  // mark as read for each time the page refreshes
+  componentDidUpdate () {
+    this._markChannelAsRead() 
+  }
+
+  _markChannelAsRead() {
+    if (!this.props.channelArr[ this.props.channelId ].users[ this.props.userData.uid ].read )
+      markAsRead(this.props.userData.uid, this.props.channelId);
   }
 
   render() {
 
     return (
       <KeyboardAvoidingView
-      keyboardVerticalOffset={80}
+      keyboardVerticalOffset={78}
       style={{flex: 1}}
       behavior="padding"
       >
         <GiftedChat
-          messages={this.props.channelArr['ex1'].messages}
-          onSend={messages => sendMessage(this.props.userData, 'ex1', messages)}
+          messages={this.props.channelArr[ this.props.channelId ].messages}
+          onSend={messages => sendMessage(this.props.userData, this.props.channelId, messages)}
           user={{
             _id: this.props.userData.uid,
           }}

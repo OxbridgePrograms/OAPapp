@@ -25,6 +25,7 @@ import Settings from './pages/Settings';
 import Splashpage from './pages/Splashpage';
 import EventPage from './pages/EventPage';
 import AnnouncementPage from './pages/AnnouncementPage';
+import InboxPage from './pages/InboxPage';
 import MessengerPage from './pages/MessengerPage';
 import AnnouncementDisplay from './pages/AnnouncementDisplay';
 
@@ -43,6 +44,12 @@ class App extends Component {
       'Montserrat-Light': require('./../assets/fonts/Montserrat/Montserrat-Light.ttf'),
       'Muli-Regular': require('./../assets/fonts/Muli/Muli-Regular.ttf'),
       'Muli-Light': require('./../assets/fonts/Muli/Muli-Light.ttf'),
+      'San-Francisco-Regular': require('./../assets/fonts/SanFrancisco/San-Francisco-Regular.ttf'),
+      'San-Francisco-Bold': require('./../assets/fonts/SanFrancisco/San-Francisco-Bold.ttf'),
+      'San-Francisco-Light': require('./../assets/fonts/SanFrancisco/San-Francisco-Light.ttf'),
+      'Roboto-Regular': require('./../assets/fonts/Roboto/Roboto-Regular.ttf'),
+      'Roboto-Bold': require('./../assets/fonts/Roboto/Roboto-Bold.ttf'),
+      'Roboto-Light': require('./../assets/fonts/Roboto/Roboto-Light.ttf')
     });
     this.setState({fontLoaded: true});
   }
@@ -68,10 +75,11 @@ class App extends Component {
                   key='Splashpage'
                   title='Splashpage'
                 />
+
                 <Drawer
                   hideNavBar
                   navTransparent={true}
-                  drawerIcon={<Ionicons size={30} name="md-list" color={'#EBEBEB'} />}
+                  drawerIcon={<Ionicons size={30} name="md-menu" color={'#EBEBEB'} />}
                   contentComponent={DrawerContent}
                   key="drawerMenu">
                   <Scene
@@ -87,12 +95,12 @@ class App extends Component {
                     key='Announcements'
                   />
                   <Scene
-                    component={MessengerPage}
-                    title='Default_Messenger_Header'
+                    component={InboxPage}
+                    title='Chat'
                     navigationBarStyle={styles.navBar}
                     titleStyle={styles.navBarTitle}
                     navBarButtonColor='white'
-                    key='Inbox'
+                    key='Chat'
                   />
                   <Scene
                     component={CalendarPage}
@@ -105,9 +113,18 @@ class App extends Component {
                     key='Settings'
                   />
                 </Drawer>
+                <Scene
+                    component={MessengerPage}
+                    title='Default_Messenger_Header'
+                    navigationBarStyle={styles.navBar}
+                    titleStyle={styles.navBarTitle}
+                    navBarButtonColor='white'
+                    key='Messenger'
+                />
               </Scene>
 
             {/* Lightbox components */}
+              
               <Scene
                   component={EventPage}
                   hideNavBar={false}

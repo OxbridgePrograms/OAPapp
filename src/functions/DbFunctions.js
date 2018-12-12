@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 
 import ActionList from './../redux/actions/ActionList';
 import {store} from './../index';
+import {generateTitle} from './ChatFunctions';
 
 /************************************************************************************************
 *
@@ -47,11 +48,11 @@ var unsubscribe = null;
 
     // Returns to the login page if userData is undefined (Should never happen)
     if (store.getState().userData == undefined) {
-      Alert.alert('User data undefined', 'Please contact Oxbridge Academic Prgrams about this error (error: 001)');
+      Alert.alert('User data undefined', 'Please contact Oxbridge Academic Programs about this error (error: 001)');
       Actions.popTo('Authentication');
       return;
-    }
-
+    
+}
     // Read all user information and filters out non-program user data
     const db = firebase.database();
     db.ref('users').once('value', (snapshot) => {
@@ -82,7 +83,7 @@ var unsubscribe = null;
 
     // Returns to the login page if userData is undefined (Should never happen)
     if (store.getState().userData == undefined) {
-      Alert.alert('User data undefined', 'Please contact Oxbridge Academic Prgrams about this error (error: 001)');
+      Alert.alert('User data undefined', 'Please contact Oxbridge Academic Programs about this error (error: 001)');
       Actions.popTo('Authentication');
       return;
     }
@@ -122,19 +123,25 @@ var unsubscribe = null;
       let dBURLChannel = 'channels/' + channel.uid;
 
       // Create a listener for each message channel
-      db.ref(dBURLChannel).on('value', (snapshot) => {
-        // Store the program on redux
-        store.dispatch({type: ActionList.ADD_MESSAGE_DATA, channelData: {data: snapshot.val(), uid: channel.uid} });
+      // Only read at the location if the dbListener is not on
+      if (store.getState().dbListener == undefined || !store.getState().dbListener.includes(dBURLChannel) ) {
+        db.ref(dBURLChannel).on('value', (snapshot) => {
 
-        // Store the listener on redux
-        store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLChannel});
+          let data = snapshot.val();
 
-        console.log(channel.uid + ' Message Channel redux updated');
-      }, (error) => {
-        Alert.alert('Connection Error', 'Problem downloading message information. Please check your internet connection: ' + error.code);
-        Actions.popTo('Authentication');
-      });
-      
+          // Store the program on redux
+          store.dispatch({type: ActionList.ADD_MESSAGE_DATA, channelData: {data: data, uid: channel.uid} });
+
+          // Store the listener on redux
+          store.dispatch({type: ActionList.ADD_DB_LISTENER, dbURL: dBURLChannel});
+
+          console.log(channel.uid + ' Message Channel redux updated');
+        }, (error) => {
+          Alert.alert('Connection Error', 'Problem downloading message information. Please check your internet connection: ' + error.code);
+          Actions.popTo('Authentication');
+        });
+      }
+        
     }
 
   }
@@ -322,4 +329,13 @@ export const submitMessage = (uid, data) => {
       console.log(error);
     }
   });
+}
+
+export const updateReadStatus = (updateArr) => {
+  firebase.database().ref().update(updateArr, (error) => {
+    if (error) {
+      Alert.alert( error.code );
+      console.log( error );
+    }
+  })
 }

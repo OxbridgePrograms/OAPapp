@@ -13,7 +13,7 @@ export const date2String = (dateMS) => {
 
   let offset = 0;
   let timeLabel = 'AM';
-  if (dateObj.getHours() > 12) {
+  if (dateObj.getHours() >= 12) {
     offset -= 12;
     timeLabel = 'PM';
   }

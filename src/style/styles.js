@@ -7,6 +7,7 @@ const h2 = 24;
 const h3 = 18;
 const p1 = 14;
 
+// Height/Widths for the profile banner + image
 const {height, width} = Dimensions.get('window');
 export const calendarWidth = width/7;
 const profileBannerWidth = width - width/7;
@@ -14,17 +15,32 @@ const profileBannerMargin = (width/7)/2;
 export const profilePictureWidth = 120;
 const profilePictureMargin = (width - profilePictureWidth)/2;
 
+// Height/Width for the modal cards
 const lightBoxWidth = 4 * width / 5;
-const lightBoxHeight = 2* height / 3;
+const lightBoxHeight = 2 * height / 3;
 
-const titleFont = 'Montserrat-Regular';
-const subTitleFont = 'Montserrat-Regular';
-const subTitleFontLight = 'Montserrat-Regular';
-const textFont = 'Muli-Light';
+// Fonts for the application
+// const titleFont = 'Montserrat-Regular';
+// const subTitleFont = 'Montserrat-Regular';
+// const subTitleFontLight = 'Montserrat-Regular';
+// const textFont = 'Muli-Light';
+// const textFontBold = 'Muli-Bold';
+
+// const titleFont = 'San-Francisco-Regular';
+// const subTitleFont = 'San-Francisco-Bold';
+// const subTitleFontLight = 'San-Francisco-Regular';
+// const textFont = 'San-Francisco-Regular';
+// const textFontBold = 'San-Francisco-Bold';
+
+const titleFont = 'Roboto-Light';
+const subTitleFont = 'Roboto-Regular';
+const subTitleFontLight = 'Roboto-Light';
+const textFont = 'Roboto-Regular';
+const textFontBold = 'Roboto-Bold';
 
 // Note that throughout the styling sheet we sometimes use RGBA instead of hex codes because of opacity -- these constants serve as universal references
 const c1 = '#093266';
-const c2 = '#627C9D';
+const c2 = '#7C7F83';
 const c3 = '#EBEBEB';
 const c4 = '#FFFFFF';
 const c5 = '#028bff';
@@ -216,9 +232,9 @@ export default styles = StyleSheet.create({
 
   // Styling for the announcements
   announcementUserProfile: {
-    height: 74,
-    width: 74,
-    borderRadius: 37,
+    height: 64,
+    width: 64,
+    borderRadius: 32,
     resizeMode: Image.resizeMode.cover,
   },
   announcementIconContainer: {
@@ -612,18 +628,52 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'stretch',
-    height: 200
+    paddingRight: 15,
+    paddingLeft: 15,
+    paddingTop: 15,
+    height: 75
   },
   messengerAvatarContainer: {
-    flex: 1,
-    alignSelf: 'stretch',
+    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   messengerPreviewContainer: {
-    flex: 4,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    flexDirection: 'column'
+    flex: 1,
+    paddingLeft: 10,
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
+  messengerUserProfileLarge: {
+    height: 56,
+    width: 56,
+    borderRadius: 28,
+    resizeMode: Image.resizeMode.cover,
+  },
+  inboxTitle: {
+    fontSize: h3,
+    fontFamily: textFont,
+    textAlign: 'left'
+  },
+  inboxDescription: {
+    marginTop: 3,
+    fontSize: p1,
+    color: c2,
+    fontFamily: textFont,
+    textAlign: 'left'
+  },
+  inboxTitleUnread: {
+    fontSize: h3,
+    fontFamily: textFontBold,
+    textAlign: 'left'
+  },
+  inboxDescriptionUnread: {
+    marginTop: 3,
+    fontSize: p1,
+    fontFamily: textFontBold,
+    textAlign: 'left'
+  },
+  notificationIcon: {
+    marginLeft: 15
+  }
 });
