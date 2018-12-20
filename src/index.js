@@ -40,13 +40,13 @@ class App extends Component {
   state = {fontLoaded: false}
   async componentDidMount() {
     await Font.loadAsync({
-      'Montserrat-Regular': require('./../assets/fonts/Montserrat/Montserrat-Regular.ttf'),
-      'Montserrat-Light': require('./../assets/fonts/Montserrat/Montserrat-Light.ttf'),
-      'Muli-Regular': require('./../assets/fonts/Muli/Muli-Regular.ttf'),
-      'Muli-Light': require('./../assets/fonts/Muli/Muli-Light.ttf'),
-      'San-Francisco-Regular': require('./../assets/fonts/SanFrancisco/San-Francisco-Regular.ttf'),
-      'San-Francisco-Bold': require('./../assets/fonts/SanFrancisco/San-Francisco-Bold.ttf'),
-      'San-Francisco-Light': require('./../assets/fonts/SanFrancisco/San-Francisco-Light.ttf'),
+      // 'Montserrat-Regular': require('./../assets/fonts/Montserrat/Montserrat-Regular.ttf'),
+      // 'Montserrat-Light': require('./../assets/fonts/Montserrat/Montserrat-Light.ttf'),
+      // 'Muli-Regular': require('./../assets/fonts/Muli/Muli-Regular.ttf'),
+      // 'Muli-Light': require('./../assets/fonts/Muli/Muli-Light.ttf'),
+      // 'San-Francisco-Regular': require('./../assets/fonts/SanFrancisco/San-Francisco-Regular.ttf'),
+      // 'San-Francisco-Bold': require('./../assets/fonts/SanFrancisco/San-Francisco-Bold.ttf'),
+      // 'San-Francisco-Light': require('./../assets/fonts/SanFrancisco/San-Francisco-Light.ttf'),
       'Roboto-Regular': require('./../assets/fonts/Roboto/Roboto-Regular.ttf'),
       'Roboto-Bold': require('./../assets/fonts/Roboto/Roboto-Bold.ttf'),
       'Roboto-Light': require('./../assets/fonts/Roboto/Roboto-Light.ttf')
@@ -79,7 +79,7 @@ class App extends Component {
                 <Drawer
                   hideNavBar
                   navTransparent={true}
-                  drawerIcon={<Ionicons size={30} name="md-menu" color={'#EBEBEB'} />}
+                  drawerIcon={<Ionicons size={30} name="md-menu" color={'#D6D6D6'} />}
                   contentComponent={DrawerContent}
                   key="drawerMenu">
                   <Scene
@@ -96,10 +96,9 @@ class App extends Component {
                   />
                   <Scene
                     component={InboxPage}
-                    title='Chat'
                     navigationBarStyle={styles.navBar}
                     titleStyle={styles.navBarTitle}
-                    navBarButtonColor='white'
+                    title='Messages'
                     key='Chat'
                   />
                   <Scene
@@ -118,7 +117,6 @@ class App extends Component {
                     title='Default_Messenger_Header'
                     navigationBarStyle={styles.navBar}
                     titleStyle={styles.navBarTitle}
-                    navBarButtonColor='white'
                     key='Messenger'
                 />
               </Scene>

@@ -17,7 +17,8 @@ import {Image,
 *************************************************************************************************/
 
 // Takes the message packet constructed by react native gifted chat and inserts the correct information
-export const sendMessage = (userData, channelId, dataObj) => {
+export const sendMessage = (userData, channelArr, channelId, dataObj) => {
+
 	// Construct the message object (replace old data)
 	let data = Object.assign({}, dataObj[0]);
 	data.createdAt = (new Date()).getTime();
@@ -28,7 +29,11 @@ export const sendMessage = (userData, channelId, dataObj) => {
 	console.log('Submitting Message:');
 	console.log( data );
 
-	submitMessage(channelId, data);
+	// Check if channel exists
+	if ( channelArr[channelId] == undefined ) {
+		// Create channel
+	} else
+		submitMessage(channelId, data);
 }
 
 // Constructs the user packet to insert in the message
@@ -84,6 +89,7 @@ export const compareChannels = (c1, c2) => {
 // Marks the messages as read and updates on DB
 export const markAsRead = (userId, channelId) => {
 
+	// Assumes that the channel exists
 	let dbURL = '/channels/' + channelId + '/users/' + userId + '/read';
 	let updateArr = {[dbURL]: true};
 
@@ -105,6 +111,7 @@ export const generateTitle = (userList, userArr, userId) => {
 	delete userArrCopy[userId];
 	userArrCopy = Object.keys(userArrCopy);
 
+	// The title is the other user's name or a combination of all the users' names
 	if (userArrCopy.length == 0) {
 		return 'Undefined User';
 	} else if (userArrCopy.length == 1) {
@@ -136,7 +143,7 @@ export const generateAvatar = (userList, userArr, userId) => {
 		if ( userList[ userArrCopy[0] ].image )
 			imageBubble = (<Image source={{uri : userList[ userArrCopy[0] ].image}} style={styles.messengerUserProfileLarge}/>);
 	} else {
-		// TODO: Group chat avatar
+		// TODO: Group chat avatar (Potentially default avatar until )
 	}
 
 	return imageBubble;
@@ -198,7 +205,7 @@ export const generateTimeStamp = (messageObj) => {
 *
 *************************************************************************************************/
 
-// Creates a chat for the user to create the channel (channel is NOT created until the message is sent)
+// Creates a local chat for the user to create the channel (channel is NOT created until the message is sent)
 export const composeMessage = (userIdArr) => {
 	// Create initial message
 	initMessage = {
@@ -211,14 +218,72 @@ export const composeMessage = (userIdArr) => {
 	// Add the users to the channel
 	users = {};
 	for (let uid of userIdArr) {
-		users[uid] = {uid: uid};
+		users[uid] = {
+			uid: uid,
+			read: false};
 	}
+
+	// Return the message in phone format, note that uid is absent because it doesn't exist in the DB
+	let channelObj = {
+		messages: [initMessage],
+		users: users
+	};
+
+	return channelObj;
+
 }
 
-// Creates a new chat channel with the specified users
-export const createChannel = (userIdArr) => {
+// Returns a channelId if one exists, false otherwise
+export const channelExists = (channelArr, userIdArr) => {
 
+	// Check every channel for a match
+	for ( let channelId of Object.keys( channelArr ) ) {
 
+		let userObj = channelArr[ channelId ].users;
+		let matching = true;
+
+		// Check every user if the lengths are the same
+		if (Object.keys( userObj ).length == userIdArr.length) {
+			for ( let uid of userIdArr ) {
+				if ( userObj[ uid ] == undefined )
+					matching = false;
+			}
+		} else {
+			matching = false;
+		}
+
+		// return the match
+		if (matching)
+			return channelId;
+	}
+
+	// Return false if we do not find a match
+	return false;
 }
 
 
+/************************************************************************************************
+*
+* Search Bar functions
+*
+*************************************************************************************************/
+
+// Returns the list of channels that match any substring in the first/last name
+export const filterMessages = (messageObj, userId, userList, inputStr) => {
+	let filteredList = {};
+	let expression = inputStr.toLowerCase();
+
+	// Iterate through all the channels
+	for (let channelId of Object.keys(messageObj)) {
+		// check for user matches and add to list if there is a match
+		for (let uid of Object.keys(messageObj[channelId].users)) {
+			if (uid != userId) {
+				let testStr = userList[uid].firstName.toLowerCase() + ' ' + userList[uid].lastName.toLowerCase();
+				if (testStr.indexOf(expression) >= 0)
+					filteredList[channelId] = messageObj[channelId];
+			}
+		}
+	}
+
+	return filteredList;
+}

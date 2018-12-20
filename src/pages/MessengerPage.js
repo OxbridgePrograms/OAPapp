@@ -13,7 +13,7 @@ import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 
 import Expo from 'expo';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, InputToolbar, Composer } from 'react-native-gifted-chat';
 
 // Custom components
 import styles from '../style/styles';
@@ -39,8 +39,20 @@ class MessengerPage extends Component {
   }
 
   _markChannelAsRead() {
-    if (!this.props.channelArr[ this.props.channelId ].users[ this.props.userData.uid ].read )
+
+    // Check if the channel exists and that the channel has been not read
+    if (this.props.channelArr[ this.props.channelId ] !== undefined &&
+      !this.props.channelArr[ this.props.channelId ].users[ this.props.userData.uid ].read )
       markAsRead(this.props.userData.uid, this.props.channelId);
+  }
+
+  renderInputToolbar(props) {
+     //Add the extra styles via containerStyle
+    return <InputToolbar {...props} containerStyle={styles.inputTextBar} />
+  }
+
+  renderComposer(props) {
+    return <Composer {...props} textInputStyle={styles.inputComposer}/>
   }
 
   render() {
@@ -53,7 +65,10 @@ class MessengerPage extends Component {
       >
         <GiftedChat
           messages={this.props.channelArr[ this.props.channelId ].messages}
-          onSend={messages => sendMessage(this.props.userData, this.props.channelId, messages)}
+          onSend={messages => sendMessage(this.props.userData, this.props.channelArr, this.props.channelId, messages)}
+          renderInputToolbar={this.renderInputToolbar}
+          renderComposer={this.renderComposer}
+          minInputToolbarHeight={55}
           user={{
             _id: this.props.userData.uid,
           }}

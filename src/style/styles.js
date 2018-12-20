@@ -34,7 +34,7 @@ const lightBoxHeight = 2 * height / 3;
 
 const titleFont = 'Roboto-Light';
 const subTitleFont = 'Roboto-Regular';
-const subTitleFontLight = 'Roboto-Light';
+const subTitleFontLight = 'Roboto-Regular';
 const textFont = 'Roboto-Regular';
 const textFontBold = 'Roboto-Bold';
 
@@ -154,11 +154,10 @@ export default styles = StyleSheet.create({
 
   //NavBar Styling
   navBar: {
-    backgroundColor: c5,
+    backgroundColor: c4,
   },
   navBarTitle: {
-    color: c4,
-    fontSize: h3,
+    fontSize: h2
   },
   navBarDrawer: {
     backgroundColor: 'rgba(9, 50, 102, 0.5)',
@@ -271,8 +270,7 @@ export default styles = StyleSheet.create({
   },
   eventTitle: {
     fontSize: h3,
-    fontFamily: subTitleFontLight,
-    color: c1,
+    fontFamily: textFontBold,
   },
   eventTime: {
     marginTop: 5,
@@ -289,6 +287,7 @@ export default styles = StyleSheet.create({
     fontSize: p1,
     fontFamily: textFont,
     lineHeight: 18,
+    color: c2
   },
   eventImage: {
     height: 150,
@@ -630,7 +629,6 @@ export default styles = StyleSheet.create({
     alignSelf: 'stretch',
     paddingRight: 15,
     paddingLeft: 15,
-    paddingTop: 15,
     height: 75
   },
   messengerAvatarContainer: {
@@ -675,5 +673,32 @@ export default styles = StyleSheet.create({
   },
   notificationIcon: {
     marginLeft: 15
+  },
+  inputTextBar: {
+    backgroundColor: 'transparent',
+    borderTopWidth: 0
+  },
+  inputComposer: {
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 12,
+    paddingRight: 12,
+    marginRight: 5,
+    lineHeight: 18,
+    backgroundColor: c4,
+    borderRadius: 15
+  },
+
+  // SearchBar Style
+  searchBar: {
+    backgroundColor: c3,
+    borderColor: c3,
+    borderRadius: 20,
+    padding: 3,
+    marginTop: 5
+  },
+  searchBarText: {
+    color: c2,
+    fontSize: p1
   }
 });

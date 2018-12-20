@@ -314,11 +314,28 @@ export const addOrDeleteHandleDatabase = (url, state, id, error) => {
 *
 *************************************************************************************************/
 
+export const createChannelDb = (uid, data) => {
+  let dbURL = 'channels/';
+
+  // We push the key along with the data object
+  updateArr = {};
+  const key = firebase.database().ref( dbURL ).push().key;
+  updateArr[dbURL + '/' + key] = Object.assign({}, data, {uid: key});
+
+  // Create the channel
+  firebase.database().ref().update(updateArr, (error) => {
+    if (error) {
+      Alert.alert(error.code);
+      console.log(error);
+    }
+  });
+}
+
 export const submitMessage = (uid, data) => {
   let dbURL = 'channels/' + uid + '/messages';
 
   // We push the key along with the data object
-  updateArr = {}
+  updateArr = {};
   const key = firebase.database().ref( dbURL ).push().key;
   updateArr[dbURL + '/' + key] = Object.assign({}, data, {_id: key});
 
